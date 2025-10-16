@@ -1,30 +1,28 @@
-# 🛡️ Samba Active Directory Domain Controller Telepítő Szkript (V6.4 FINAL PR)
+# Samba Active Directory Tartományvezérlő Telepítő (Ubuntu)
 
-**Fájlnév:** `ubuntu-installer-6.4-samba-ad-dc.sh`
+## 📜 Áttekintés
 
-Ez a szkript egy robusztus, biztonságos és automatizált megoldás a **Samba4 Active Directory Domain Controller (AD DC)** telepítésére Debian-alapú rendszereken, különös tekintettel az **Ubuntu 22.04 LTS** és újabb szerververziókra.
+Ez a Bash szkript automatizálja a **Samba 4** telepítését és konfigurálását **Active Directory (AD) tartományvezérlőként (DC)** Ubuntu szervereken (22.04 LTS vagy újabb). A szkript a maximális stabilitás érdekében kizárólag a **hivatalos Ubuntu tárolókat** használja a `samba-ad-dc` csomag telepítéséhez, és gondoskodik a DNS és Kerberos konfigurációk megfelelő beállításáról, elkerülve a gyakori `systemd-resolved` alapú DNS hibákat.
 
-A V6.4-es verzió **Production Ready** minősítést kapott, magába foglalva a kritikus biztonsági és megbízhatósági funkciókat.
+***
 
----
+## ⚠️ Előfeltételek és Kritikus Első Lépés
 
-## 🚀 Főbb Jellemzők és Előnyök
+A szkript futtatása előtt a szervernek statikus IP-címmel kell rendelkeznie, és a hálózati névfeloldásnak megfelelően be kell állítva.
 
-* **Biztonságos Jelszókezelés:** Kerberos alapú hitelesítés a `samba-tool` parancsokhoz, elkerülve a jelszavak futásidejű láthatóságát.
-* **Production Ready Ellenőrzések:**
-    * **Időszinkronizáció (NTP/Chrony)** ellenőrzése (kritikus az AD-működéshez).
-    * **Hálózati validáció:** Statikus IP és DNS Forwarder elérhetőségének ellenőrzése.
-* **Tűzfal Automata Konfiguráció:** Automatikus **UFW** konfiguráció az összes szükséges AD, LDAP, Kerberos, SMB és dinamikus RPC portra.
-* **Hibakezelés és Visszaállítás:** Részleges provisioning esetén **backup/rollback mechanizmus** áll rendelkezésre a rendszer integritásának megőrzésére.
+### 1. Hosts Fájl Beállítása (Kritikus!)
 
----
+A Samba AD DC megfelelő működéséhez a szervernek saját magát kell feloldania a teljes és rövid nevén is.
 
-## 📋 Használati Útmutató
+**Nyissa meg a `/etc/hosts` fájlt és illessze be a következő sort (cserélje ki a példákat a saját adataira):**
 
-### 1. Előkészítés és Futtathatóvá Tétel
+| Adat | Példa |
+| :--- | :--- |
+| **IP Cím** | `192.168.1.100` |
+| **Teljes Név** | `dc1.cegnev.local` |
+| **Rövid Név** | `dc1` |
 
-```bash
-# Helyezze a szkript tartalmát az ubuntu-installer-6.4-samba-ad-dc.sh fájlba.
+**Beillesztendő sor:**
 
-# Tegye futtathatóvá a fájlt
-chmod +x ubuntu-installer-6.4-samba-ad-dc.sh
+```hosts
+192.168.1.100 dc1.cegnev.local dc1
