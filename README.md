@@ -1,6 +1,6 @@
-# 🚀 Samba AD DC Telepítő Szkript (v2.0b) 💾
+# 🚀 Samba AD DC Telepítő Szkript (v2.1) 💾
 
-## `ubuntu22x-debian13-samba4-ad-dc-2.0b.sh`
+## `debian-ubuntu-samba4-ad-dc-2.1.sh`
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Bash Shell](https://img.shields.io/badge/Shell-Bash-blue)](https://www.gnu.org/software/bash/)
@@ -11,9 +11,9 @@
 
 ## 💡 Áttekintés
 
-Ez a Bash szkript automatizálja a **Samba Active Directory Domain Controller (AD DC)** telepítését és kritikus konfigurációját. Kifejezetten a modern **Debian-alapú** Linux rendszerekhez lett optimalizálva, kiküszöbölve a provisionálás során felmerülő gyakori **DNS, Kerberos és NetBIOS hibákat**. A cél egy stabil és Windows-kliensekkel teljesen kompatibilis tartományvezérlő létrehozása.
+Ez a Bash szkript automatizálja a **Samba Active Directory Domain Controller (AD DC)** telepítését és kritikus konfigurációját. Kifejezetten a modern, stabil **Debian-alapú** Linux rendszerekhez (DevOFALL optimalizálás) lett tervezve, kiküszöbölve a provisionálás során felmerülő gyakori **DNS, Kerberos és NetBIOS hibákat**. A cél egy stabil és Windows-kliensekkel teljesen kompatibilis tartományvezérlő létrehozása.
 
-**Verzió:** `v2.0b (Optimized & Fix-applied)`
+**Verzió:** `v2.1 (DevOFALL Final Fix)`
 
 ---
 
@@ -21,12 +21,11 @@ Ez a Bash szkript automatizálja a **Samba Active Directory Domain Controller (A
 
 | Kategória | Alkalmazás / Rendszer | Verzió / Ikon | Szerep |
 | :--- | :--- | :--- | :--- |
-| **Operációs Rendszer** | Ubuntu Server | [![Ubuntu Supported](https://img.shields.io/badge/Ubuntu-22.04%20LTS-E95420?logo=ubuntu&logoColor=white)](https://ubuntu.com/) | Célplatform |
-| **Operációs Rendszer** | Debian | [![Debian Supported](https://img.shields.io/badge/Debian-11%20%7C%2012%20%7C%2013-A80030?logo=debian&logoColor=white)](https://www.debian.org/) | Célplatform |
+| **Operációs Rendszer** | Ubuntu Server | [![Ubuntu Supported](https://img.shields.io/badge/Ubuntu-22.04%20LTS-E95420?logo=ubuntu&logoColor=white)](https://ubuntu.com/) | Fő Célplatform |
+| **Operációs Rendszer** | Debian | [![Debian Supported](https://img.shields.io/badge/Debian-12%20&#124;%2013-A80030?logo=debian&logoColor=white)](https://www.debian.org/) | Támogatott Platform |
 | **Core Szolgáltatás** | Samba AD DC | [![Samba 4.x](https://img.shields.io/badge/Samba-4.x%20AD%20DC-0077D4?logo=samba&logoColor=white)](https://www.samba.org/) | Tartományvezérlő |
 | **Core Szolgáltatás** | DNS Szerver | `📡` | Belső DNS feloldás és AD zónák kezelése |
 | **Core Szolgáltatás** | Kerberos KDC | `🔑` | Hitelesítési (ticket) szolgáltatás |
-| **Core Szolgáltatás** | LDAP | `📖` | Directory Services adatbázis |
 | **Kiegészítő** | `apt-get` | `📦` | Csomagkezelő motor |
 
 ---
@@ -48,8 +47,8 @@ A szkript a provisionálás során felmerülő leggyakoribb stabilitási problé
 
 ### 1. Előkészítés
 
-Győződjön meg róla, hogy a szkript **`ubuntu22x-debian13-samba4-ad-dc-2.0b.sh`** néven létezik a rendszereden, és a szerverhez **statikus IP-cím** van beállítva!
+Győződjön meg róla, hogy a szkript a megadott néven létezik a rendszereden, és a szerverhez **statikus IP-cím** van beállítva!
 
 ```bash
 # Adjon futtatási jogosultságot
-sudo chmod +x ubuntu22x-debian13-samba4-ad-dc-2.0b.sh
+sudo chmod +x debian-ubuntu-samba4-ad-dc-2.1.sh
