@@ -1,28 +1,56 @@
-# Samba Active Directory Tartományvezérlő Telepítő (Ubuntu)
+# 🚀 Samba AD DC Telepítő Szkript (v2.0)
 
-## 📜 Áttekintés
-
-Ez a Bash szkript automatizálja a **Samba 4** telepítését és konfigurálását **Active Directory (AD) tartományvezérlőként (DC)** Ubuntu szervereken (22.04 LTS vagy újabb). A szkript a maximális stabilitás érdekében kizárólag a **hivatalos Ubuntu tárolókat** használja a `samba-ad-dc` csomag telepítéséhez, és gondoskodik a DNS és Kerberos konfigurációk megfelelő beállításáról, elkerülve a gyakori `systemd-resolved` alapú DNS hibákat.
+A szkript célja a **Samba Active Directory Domain Controller (AD DC)** telepítésének és kritikus konfigurációjának automatizálása Linuxon. Fő funkciója a DNS, Kerberos és NetBIOS hibák kiküszöbölése, stabil és Windows-kompatibilis tartományvezérlő létrehozásával.
 
 ***
 
-## ⚠️ Előfeltételek és Kritikus Első Lépés
+## 💻 Támogatott Operációs Rendszerek
 
-A szkript futtatása előtt a szervernek statikus IP-címmel kell rendelkeznie, és a hálózati névfeloldásnak megfelelően be kell állítva.
+Mivel a szkript **`apt-get`** parancsokat és modern `systemd` szolgáltatásokat használ, elsősorban a következő **Debian-alapú** rendszereket támogatja:
 
-### 1. Hosts Fájl Beállítása (Kritikus!)
+| Rendszer | Verzió | Ikon | Megjegyzés |
+| :--- | :--- | :--- | :--- |
+| **Debian** | 13 (Trixie) | 🌀 | *A Debian alapjait szimbolizáló szimbólum.* |
+| **Ubuntu Server** | 22.04 LTS (Jammy) | 🌐 | *A Linux és közösség szimbóluma.* |
 
-A Samba AD DC megfelelő működéséhez a szervernek saját magát kell feloldania a teljes és rövid nevén is.
+***
 
-**Nyissa meg a `/etc/hosts` fájlt és illessze be a következő sort (cserélje ki a példákat a saját adataira):**
+## 🛠️ Telepített Főbb Szolgáltatások
 
-| Adat | Példa |
+A szkript a következő kritikus szolgáltatásokat telepíti/konfigurálja:
+
+| Szolgáltatás | Ikon | Leírás |
+| :--- | :--- | :--- |
+| **Samba AD DC** | 💾 | A fő tartományvezérlő szoftver. |
+| **DNS Szerver** | 📡 | A Samba saját, belső DNS szervere kezeli a tartományi feloldást. |
+| **Kerberos** | 🔑 | Biztosítja a hitelesítést (KDC - Key Distribution Center). |
+| **LDAP** | 📖 | Directory Service az AD objektumok tárolására (felhasználók, csoportok). |
+| **NetBIOS** | 🔄 | Támogatás a régebbi Windows-os hálózati névfeloldáshoz. |
+
+***
+
+## ✨ Főbb Jellemzők és Hibajavítások
+
+A szkript a provisionálás során felmerülő legkritikusabb problémák kezelésére fókuszál:
+
+| Problémakör | Célja |
 | :--- | :--- |
-| **IP Cím** | `192.168.1.100` |
-| **Teljes Név** | `dc1.cegnev.local` |
-| **Rövid Név** | `dc1` |
+| **DNS Ütközés (Fix)** | Leállítja és letiltja a `systemd-resolved` szolgáltatást, majd beállítja a `127.0.0.1` címet (Samba belső DNS) elsődleges névszervernek az `/etc/resolv.conf` fájlban. |
+| **Kerberos Konfiguráció (Fix)** | Biztosítja a Samba által generált, helyes `krb5.conf` fájl használatát. |
+| **NetBIOS Kompatibilitás** | Automatikusan beállítja a `netbios name` és `workgroup` paramétereket az `smb.conf` fájlban. |
 
-**Beillesztendő sor:**
+***
 
-```hosts
-192.168.1.100 dc1.cegnev.local dc1
+## 📝 Használat
+
+Töltse le a szkriptet, tegye futtathatóvá, majd futtassa `root` jogokkal:
+
+```bash
+# Töltse le a szkriptet
+wget [a szkript linkje] -O samba-ad-install.sh
+
+# Tegye futtathatóvá
+chmod +x samba-ad-install.sh
+
+# Futtatás
+sudo ./samba-ad-install.sh
