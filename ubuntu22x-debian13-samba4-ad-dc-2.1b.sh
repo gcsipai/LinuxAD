@@ -2,7 +2,7 @@
 
 # =================================================================
 # SAMBA AD DC TELEPÍTŐ SCRIPT - JAVÍTOTT VERZIÓ 2.1 DevOFALL 2025
-# Támogatott disztribúciók: Debian 11+, Ubuntu 20.04+
+# Támogatott disztribúciók: Debian 13, Ubuntu 20.04+
 # =================================================================
 
 # Színkódok
@@ -19,7 +19,7 @@ exec > >(tee -a "$LOG_FILE") 2>&1
 
 echo "================================================================"
 echo "Samba AD DC telepítés - JAVÍTOTT VERZIÓ 2.1 DevOFALL 2025"
-echo "Támogatott disztribúciók: Debian 11+, Ubuntu 20.04+"
+echo "Támogatott disztribúciók: Debian 13, Ubuntu 20.04+"
 echo "================================================================"
 
 # --- Funkciók ---
